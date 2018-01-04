@@ -1,0 +1,36 @@
+server:
+  port: 9092
+banner:
+  charset: UTF-8
+  location: classpath:banner/bannerbackendninjaws.txt
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/backendninjaws?useSSL=false# Data (DML) script resource references.
+    username: root # User of the database to execute DML scripts (if different).
+    password: root # Password of the database to execute DML scripts (if different).
+    
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+      naming:
+        strategy: org.hibernate.cfg.ImprovedNamingStrategy
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5Dialect
+
+  thymeleaf:
+    cache: true # Enable template caching:
+    check-template : true # Check that the template exists before rendering it:
+    check-template-location: true # Check that the templates location exists:
+    content-type: text/html # Content-Type value:
+    enabled: true # Enable MVC Thymeleaf view resolution:
+    encoding: UTF-8 # Template encoding:
+    #excluded-view-names= # Comma-separated list of view names that should be excluded from resolution:
+    mode: HTML5 # Template mode to be applied to templates: See also StandardTemplateModeHandlers:
+    prefix: classpath:/templates/ # Prefix that gets prepended to view names when building a URL:
+    suffix: .html # Suffix that gets appended to view names when building a URL:
+    #template-resolver-order= # Order of the template resolver in the chain:
+    #view-names= # Comma-separated list of view names that can be resolved:
+  
