@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.pablinchapin.backendninjaws.configuration.ViewConstant;
@@ -32,8 +33,16 @@ public class ContactController {
 	}
 	
 	@GetMapping("/contactform")
-	private String contactForm(Model model){
-		model.addAttribute("contactModel", new ContactModel());
+	private String contactForm(
+			@RequestParam(name="id", required=true) int id,
+			Model model){
+		
+		ContactModel contact = new ContactModel();
+		if(id != 0){
+			contact = contactService.findContactByIdModel(id);
+		}
+		
+		model.addAttribute("contactModel", contact);
 		return ViewConstant.CONTACT_FORM;
 	}
 	
@@ -64,6 +73,20 @@ public class ContactController {
 		
 		return modelAndView;
 	}
+	
+	
+	@GetMapping("/removecontact")
+	public ModelAndView removeContact(
+			@RequestParam(name="id", required=true) int id
+			){
+		
+		LOG.info("METHOD: removeContact() PARAMS: id->"+id);
+		
+		contactService.removeContact(id);
+		
+		return listAllContacts();
+	}
+	
 	
 
 }
